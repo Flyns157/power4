@@ -1,1 +1,3 @@
-# power4
+# power4 | jeu du Puissance 4
+
+/!\ Projet fait sur Linux et non fonctionnel sur Windows ...
