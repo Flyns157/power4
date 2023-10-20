@@ -1,7 +1,6 @@
 #!/usr/bin/python3
 from www import *
 import random
-import time
 B="fond"
 # Groupe 17 : CUISSET Mattéo; Abdelkader DAi, Yanis ...
 # TYPESEND définis le type de d'intéraction des joueurs pour jouer un coup.
