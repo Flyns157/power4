@@ -1,3 +1,8 @@
 # power4 | jeu du Puissance 4
 
-/!\ Projet fait sur Linux et non fonctionnel sur Windows ...
+/!\ Projet désormais multiplateforme !
+
+
+**Information supplémentaire :**
+
+Exécutez la commande suivante pour lancer l'application : ` python -m power4 `
