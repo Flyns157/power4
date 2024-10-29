@@ -1,4 +1,5 @@
 from flask import Flask, render_template, request, jsonify
+from flask_socketio import SocketIO, emit
 
 # Initialiser le plateau (6 lignes x 7 colonnes)
 ROWS = 6
@@ -42,7 +43,9 @@ def reset_board():
     current_player = 1
 
 
-def init_app(app: Flask):
+def init_app(app: Flask)-> SocketIO:
+    socketio = SocketIO(app)
+    
     @app.route('/')
     def index():
         return render_template('index.html')
@@ -65,8 +68,12 @@ def init_app(app: Flask):
                 if check_winner(board, current_player):
                     winner = current_player
                     reset_board()
+                    socketio.emit('game_update', {"board": board, "current_player": current_player, "winner": winner})
                     return jsonify({"winner": winner})
-                current_player = 3 - current_player  # Alterne entre 1 et 2
+                current_player = 3 - current_player
+                socketio.emit('game_update', {"board": board, "current_player": current_player})
                 return jsonify({"board": board, "current_player": current_player})
 
         return jsonify({"error": "Column is full"}), 400
+    
+    return socketio

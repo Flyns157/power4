@@ -10,6 +10,8 @@
     <h1>Puissance 4</h1>
     <p>Joueur actuel: <span id="current-player">1</span></p>
     <div id="board"></div>
+    <!-- Charger Socket.IO avant game.js -->
+    <script src="https://cdn.socket.io/4.0.0/socket.io.min.js"></script>
     <script src="{{ url_for('static', filename='js/game.js') }}"></script>
 </body>
 </html>

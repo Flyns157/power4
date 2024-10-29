@@ -1,5 +1,5 @@
-from flask import Flask
 from power4 import init_app
+from flask import Flask
 import argparse
 import sys
 
@@ -9,9 +9,10 @@ def main(debug=False, host='0.0.0.0', port=8080):
                 static_url_path='',
                 static_folder='assets',
                 template_folder='templates')
+    app.config['SECRET_KEY'] = 'secret!'
     
-    init_app(app)
-    app.run(debug=debug, host=host, port=port)
+    socketio = init_app(app)
+    socketio.run(app, debug=debug, host=host, port=port)
 
 # =================================== Run ===================================
 if __name__ == '__main__':

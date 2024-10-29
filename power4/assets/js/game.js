@@ -1,3 +1,4 @@
+const socket = io.connect(window.location.origin);
 const boardElement = document.getElementById('board');
 const currentPlayerElement = document.getElementById('current-player');
 const ROWS = 6;
@@ -56,6 +57,16 @@ function makeMove(col) {
         }
     });
 }
+
+// Écoute des mises à jour de jeu en temps réel
+socket.on('game_update', (data) => {
+    updateBoard(data.board);
+    currentPlayerElement.textContent = data.current_player;
+    if (data.winner) {
+        alert(`Joueur ${data.winner} a gagné !`);
+        createBoard();
+    }
+});
 
 document.addEventListener('DOMContentLoaded', () => {
     createBoard();
