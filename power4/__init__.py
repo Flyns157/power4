@@ -47,6 +47,9 @@ def init_app(app: Flask):
     def index():
         return render_template('index.html')
 
+    @app.route('/get_state', methods=['GET'])
+    def get_state():
+        return jsonify({"board": board, "current_player": current_player})
 
     @app.route('/move', methods=['POST'])
     def move():

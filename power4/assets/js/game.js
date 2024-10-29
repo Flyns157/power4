@@ -2,7 +2,7 @@ const boardElement = document.getElementById('board');
 const currentPlayerElement = document.getElementById('current-player');
 const ROWS = 6;
 const COLUMNS = 7;
-let currentPlayer = 1;
+
 function createBoard() {
     boardElement.innerHTML = '';
     for (let row = 0; row < ROWS; row++) {
@@ -16,6 +16,7 @@ function createBoard() {
         }
     }
 }
+
 function updateBoard(board) {
     for (let row = 0; row < ROWS; row++) {
         for (let col = 0; col < COLUMNS; col++) {
@@ -26,6 +27,16 @@ function updateBoard(board) {
         }
     }
 }
+
+function loadGameState() {
+    fetch('/get_state')
+        .then(response => response.json())
+        .then(data => {
+            updateBoard(data.board);
+            currentPlayerElement.textContent = data.current_player;
+        });
+}
+
 function makeMove(col) {
     fetch('/move', {
         method: 'POST',
@@ -39,11 +50,14 @@ function makeMove(col) {
             createBoard();
         } else if (data.board) {
             updateBoard(data.board);
-            currentPlayer = data.current_player;
-            currentPlayerElement.textContent = currentPlayer;
+            currentPlayerElement.textContent = data.current_player;
         } else if (data.error) {
             alert(data.error);
         }
     });
 }
-createBoard();
+
+document.addEventListener('DOMContentLoaded', () => {
+    createBoard();
+    loadGameState();
+});
